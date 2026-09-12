@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-[#F7F7F4] text-slate-800;
+  font-family: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+}
+
+/* The serif carries the institution's "voice" — wordmarks and page/section
+   titles only, never dense UI text (tables, forms stay in the sans). */
+.font-brand {
+  font-family: 'Source Serif 4', Georgia, serif;
+}
+
+.card {
+  @apply bg-white rounded-xl border border-slate-200/80 shadow-sm p-5;
+}
+
+.btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-md px-4 py-2 text-sm font-medium transition-all duration-150 active:scale-[0.97] disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100;
+}
+.btn-primary { @apply btn bg-brand-600 text-white hover:bg-brand-700 shadow-sm shadow-brand-600/20; }
+.btn-secondary { @apply btn bg-slate-100 text-slate-700 hover:bg-slate-200; }
+.btn-danger { @apply btn bg-red-50 text-red-600 hover:bg-red-100; }
+.btn-success { @apply btn bg-emerald-50 text-emerald-700 hover:bg-emerald-100; }
+
+.input {
+  @apply w-full rounded-md border border-slate-300 px-3 py-2 text-sm transition focus:outline-none focus:ring-2 focus:ring-brand-500/40 focus:border-brand-500;
+}
+.label { @apply block text-sm font-medium text-slate-600 mb-1; }
+
+.badge { @apply inline-block rounded-full px-2.5 py-0.5 text-xs font-medium; }
+.badge-pending { @apply badge bg-amber-100 text-amber-700; }
+.badge-approved { @apply badge bg-emerald-100 text-emerald-700; }
+.badge-rejected { @apply badge bg-red-100 text-red-700; }
+.badge-cancelled { @apply badge bg-slate-200 text-slate-600; }
+
+input[type="radio"], input[type="checkbox"] {
+  accent-color: theme('colors.brand.600');
+}
+input[type="file"] {
+  color: theme('colors.slate.500');
+  font-size: 0.875rem;
+}
+input[type="file"]::file-selector-button {
+  @apply btn-secondary mr-3;
+  border-radius: 0.375rem;
+  padding: 0.375rem 0.75rem;
+}
+::selection {
+  background: theme('colors.brand.200');
+}
+
+/* ---------- Motion: every tab switch, popover and alert arrives with a
+   small, deliberate animation rather than snapping into place.
+   Defined here as plain CSS (not just via tailwind.config keyframes) so
+   they're always present in the build, regardless of which animate-*
+   utility classes happen to be scanned/used elsewhere. ---------- */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes crossfade {
+  0% { opacity: 0; }
+  4% { opacity: 1; }
+  30% { opacity: 1; }
+  36% { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+.page-transition {
+  animation: fadeInUp 0.35s ease-out both;
+}
+.dropdown-transition {
+  animation: scaleIn 0.15s ease-out both;
+  transform-origin: top right;
+}
+
+/* Crossfading hero slideshow used on the public/auth pages and the
+   dashboard campus banner. Each slide fades fully in, holds, fades out,
+   staggered by animation-delay so exactly one is visible at a time. */
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  animation: crossfade 18s ease-in-out infinite;
+}
+.hero-slide:nth-child(1) { animation-delay: 0s; }
+.hero-slide:nth-child(2) { animation-delay: 6s; }
+.hero-slide:nth-child(3) { animation-delay: 12s; }
