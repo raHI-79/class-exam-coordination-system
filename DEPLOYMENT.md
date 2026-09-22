@@ -20,8 +20,8 @@
 The backend now serves the built React frontend, so `/`, `/student`, `/cr`, `/teacher`, `/portal-admin`, etc. work from the same URL.
 
 ## Default admin
-- Username: `admin`
-- Password: `admin123`
+- Username: 
+- Password:
 
 **Change the default admin password immediately after first login.**
 
